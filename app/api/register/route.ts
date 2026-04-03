@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const apiRes = await publicApi.post('/register', body);
+    const apiRes = await publicApi.post('/users/signup', body);
 
     return NextResponse.json(apiRes.data, { status: apiRes.status });
   } catch (error) {
