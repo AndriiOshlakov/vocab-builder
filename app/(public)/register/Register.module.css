@@ -1,7 +1,16 @@
 .register {
+    display: flex;
+    flex-direction: column;
     max-width: 375px;
     padding: 64px 0;
     margin: 0 auto;
+    position: relative;
+}
+
+.logoBox {
+    position: absolute;
+    top: 16px;
+    left: 16px;
 }
 
 .registerBox {
@@ -9,6 +18,10 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 8px;
+}
+
+.registerImgDesc {
+    display: none;
 }
 
 .registerBoxText {
@@ -122,16 +135,87 @@
 
 @media screen and (min-width:768px) {
     .register {
+        flex-direction: column-reverse;
+        gap: 98px;
         max-width: 768px;
         padding: 204px 70px 106px;
         background-image: url("/registerBackTab.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .logoBox {
+        top: 24px;
+        left: 32px;
+    }
+
+    .title {
+        font-size: 40px;
+        line-height: 1.2;
+    }
+
+    .text {
+        font-size: 20px;
+    }
+
+    .registerImgMob {
+        display: none;
+    }
+
+    .registerBoxText {
+        display: block;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        color: rgba(18, 20, 23, 0.8);
+    }
+
+    .formBox {
+        padding: 48px 64px;
+        gap: 20px;
+        border-radius: 30px;
+    }
+
+    .form {
+        margin-top: 12px;
+    }
+
+    .inputsBox {
+        gap: 18px;
+    }
+
+    .btn {
+        font-size: 18px;
+        line-height: 1.6;
+        height: 60px;
     }
 }
 
 @media screen and (min-width:1440px) {
     .register {
-        width: 1440px;
+        flex-direction: row-reverse;
+        max-width: 1440px;
         padding: 128px 134px 80px 100px;
-        background-image: url("/registerBackDesk.png");
+        background-image: url("/registerBackDesc.png");
+        gap: 80px;
+        align-items: center;
+    }
+
+    .logoBox {
+        left: 100px;
+    }
+
+    .registerBox {
+        gap: 16px;
+        margin: 0;
+    }
+
+    .registerImgDesc {
+        display: block;
+    }
+
+    .formBox {
+        height: 592px;
     }
 }

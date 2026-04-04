@@ -12,6 +12,7 @@ import { registerUser } from '@/lib/api/clientApi';
 import { AxiosError } from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
+import Logo from '@/components/Logo/Logo';
 
 type ApiError = AxiosError<{ error: string }>;
 
@@ -64,6 +65,9 @@ export default function Register() {
   return (
     <main className={css.register}>
       <Toaster />
+      <div className={css.logoBox}>
+        <Logo />
+      </div>
       <div className={css.registerBox}>
         <Image
           src="/registerMob.png"
@@ -71,6 +75,13 @@ export default function Register() {
           height={191}
           alt="Guys"
           className={css.registerImgMob}
+        />
+        <Image
+          src="/registerDesc.png"
+          width={498}
+          height={435}
+          alt="Guys"
+          className={css.registerImgDesc}
         />
         <p className={css.registerBoxText}>Word · Translation · Grammar · Progress</p>
       </div>
