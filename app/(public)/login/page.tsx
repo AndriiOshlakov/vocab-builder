@@ -13,23 +13,39 @@ import { AxiosError } from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '@/components/Logo/Logo';
+import { useRouter } from 'next/navigation';
 
 type ApiError = AxiosError<{ error: string }>;
 
+// export const loginSchema = yup.object({
+//   email: yup
+//     .string()
+//     .required('Email is required')
+//     .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, 'Enter a valid Email'),
+//   password: yup
+//     .string()
+//     .required('Password is required')
+//     .min(7, 'Password must have 6 leters and one number'),
+// });
 export const loginSchema = yup.object({
   email: yup
     .string()
-    .required('Email is required')
-    .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, 'Enter a valid Email'),
+    .matches(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Invalid email format')
+    .required('Email is required'),
+
   password: yup
     .string()
-    .required('Password is required')
-    .min(7, 'Password must be at least 7 characters'),
+    .matches(
+      /^(?=.*[a-zA-Z]{6})(?=.*\d)[a-zA-Z\d]{7}$/,
+      'Password must contain at least 6 letters and 1 number (min 7 chars)',
+    )
+    .required('Password is required'),
 });
 
 export default function Login() {
   const [isPassword, setIsPassword] = useState(true);
   const setUser = useAuthStore((state) => state.setUser);
+  const router = useRouter();
 
   const togglePassword = () => setIsPassword(!isPassword);
   const {
@@ -52,10 +68,20 @@ export default function Login() {
       }
 
       toast(`${user.name} logined successfuly`);
+      router.push('/dictionary');
     } catch (error) {
-      toast(
-        (error as ApiError).response?.data?.error ?? (error as ApiError).message ?? 'Login falls',
-      );
+      const err = error as ApiError;
+
+      if (err.response?.status === 401) {
+        toast('Invalid email or password');
+        return;
+      }
+
+      toast(err.response?.data?.error ?? err.message ?? 'Login failed');
+
+      // toast(
+      //   (error as ApiError).response?.data?.error ?? (error as ApiError).message ?? 'Login falls',
+      // );
     }
   };
   return (
@@ -118,7 +144,7 @@ export default function Login() {
             <button type="submit" disabled={isSubmitting} className={css.btn}>
               Login
             </button>
-            <Link href={'/login'} className={css.link}>
+            <Link href={'/register'} className={css.link}>
               Register
             </Link>
           </div>

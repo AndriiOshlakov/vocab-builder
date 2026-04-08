@@ -1,0 +1,122 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(29, 30, 33, 0.45);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 999;
+}
+
+.modal {
+    width: 185px;
+    height: 100vh;
+    background-color: #85aa9f;
+    transform: translateX(100%);
+    animation: slideIn 0.3s ease forwards;
+    padding-top: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+    }
+}
+
+.closeBtn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    stroke: #fff;
+}
+
+.userBox {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.text {
+    font-weight: 500;
+    font-size: 16px;
+    color: #fcfcfc;
+}
+
+.box {
+    border-radius: 30px;
+    width: 36px;
+    height: 36px;
+    background-color: #fcfcfc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.icon {
+    fill: #85aa9f;
+}
+
+.tabImg {
+    display: none;
+}
+
+@media screen and (min-width:768px) {
+    .modal {
+        width: 300px;
+    }
+
+    .closeBtn {
+        top: 20px;
+        right: 32px;
+    }
+
+    .x {
+        width: 40px;
+        height: 40px;
+    }
+
+    .userBox {
+        top: 20px;
+        left: 32px;
+        gap: 16px;
+    }
+
+    .text {
+        font-size: 20px;
+    }
+
+    .box {
+        width: 48px;
+        height: 48px;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .tabImg {
+        display: block;
+    }
+
+    .mobImg {
+        display: none;
+    }
+}
+
+@media screen and (min-width:1440px) {
+    .overlay {
+        display: none;
+    }
+}

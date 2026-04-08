@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { publicApi } from '../api';
+import { api } from '../api';
 import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../_utils/utils';
 
@@ -7,9 +7,19 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const apiRes = await publicApi.post('/users/signin', body);
+    const apiRes = await api.post('/users/signin', body);
 
-    return NextResponse.json(apiRes.data, { status: apiRes.status });
+    const response = NextResponse.json(apiRes.data, {
+      status: apiRes.status,
+    });
+
+    response.cookies.set('token', apiRes.data.token, {
+      httpOnly: true,
+      secure: true,
+      path: '/',
+    });
+
+    return response;
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);

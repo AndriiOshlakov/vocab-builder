@@ -1,0 +1,92 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 25px;
+}
+
+.box {
+    display: flex;
+    gap: 10px;
+}
+
+.pagination {
+    display: flex;
+    gap: 10px;
+}
+
+.page,
+.pageMob,
+.dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(18, 20, 23, 0.1);
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #262626;
+    width: 32px;
+    height: 32px;
+}
+
+.active,
+.btn:hover {
+    background-color: #85aa9f;
+    border: none;
+    color: #fff;
+    stroke: #fff;
+    fill: #fff;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(18, 20, 23, 0.1);
+    border-radius: 8px;
+    stroke: #262626;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+}
+
+.btn:disabled {
+    fill: #85aa9f;
+    pointer-events: none;
+    stroke: #85aa9f;
+}
+
+.pageTwo,
+.pageTab {
+    display: none;
+}
+
+@media screen and (min-width:768px) {
+
+    .wrapper {
+        width: 368px;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .pageMob {
+        display: none;
+    }
+
+    .pageTwo,
+    .pageTab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1.3;
+        color: #262626;
+        border: 1px solid rgba(18, 20, 23, 0.1);
+        border-radius: 8px;
+    }
+}

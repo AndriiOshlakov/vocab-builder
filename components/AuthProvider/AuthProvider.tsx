@@ -1,9 +1,10 @@
 'use client';
 
 import { useAuthStore } from '@/lib/store/authStore';
-import { getMeServer } from '@/lib/api/serverApi';
 
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { getMe } from '@/lib/api/clientApi';
 
 type Props = {
   children: React.ReactNode;
@@ -12,18 +13,29 @@ type Props = {
 const AuthProvider = ({ children }: Props) => {
   const setUser = useAuthStore((state) => state.setUser);
   const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuthenticated);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
-      const user = await getMeServer();
-      if (user) {
-        setUser(user);
-      } else {
-        clearIsAuthenticated();
+      try {
+        const user = await getMe();
+
+        if (user && user._id) {
+          setUser(user);
+          router.push('/dictionary');
+        } else {
+          router.push('/register');
+        }
+      } catch (error) {
+        console.log('Unauthorized:', error);
+
+        clearIsAuthenticated(); // 👈 бажано
+        router.push('/register');
       }
     };
+
     fetchUser();
-  }, [setUser, clearIsAuthenticated]);
+  }, [setUser, clearIsAuthenticated, router]);
 
   return children;
 };

@@ -13,6 +13,7 @@ import { AxiosError } from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '@/components/Logo/Logo';
+import { useRouter } from 'next/navigation';
 
 type ApiError = AxiosError<{ error: string }>;
 
@@ -20,17 +21,34 @@ export const registrationSchema = yup.object({
   name: yup.string().required('Name is required'),
   email: yup
     .string()
-    .required('Email is required')
-    .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, 'Enter a valid Email'),
+    .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, 'Enter a valid Email')
+    .required('Email is required'),
+
   password: yup
     .string()
-    .required('Password is required')
-    .min(7, 'Password must be at least 7 characters'),
+    .matches(
+      /^(?=.*[a-zA-Z]{6})(?=.*\d)[a-zA-Z\d]{7}$/,
+      'Password must contain at least 6 letters and 1 number (min 7 chars)',
+    )
+    .required('Password is required'),
 });
+
+// export const registrationSchema = yup.object({
+//   name: yup.string().required('Name is required'),
+//   email: yup
+//     .string()
+//     .required('Email is required')
+//     .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, 'Enter a valid Email'),
+//   password: yup
+//     .string()
+//     .required('Password is required')
+//     .min(7, 'Password must be at least 7 characters'),
+// });
 
 export default function Register() {
   const [isPassword, setIsPassword] = useState(true);
   const setUser = useAuthStore((state) => state.setUser);
+  const router = useRouter();
 
   const togglePassword = () => setIsPassword(!isPassword);
   const {
@@ -51,14 +69,14 @@ export default function Register() {
 
       if (user) {
         setUser(user);
+        toast.success(`${user.name} registrated successfuly`);
+        router.push('/dictionary');
       }
-
-      toast(`${user.name} registrated successfuly`);
     } catch (error) {
       toast(
         (error as ApiError).response?.data?.error ??
           (error as ApiError).message ??
-          'Registration falls',
+          'Registration failed',
       );
     }
   };

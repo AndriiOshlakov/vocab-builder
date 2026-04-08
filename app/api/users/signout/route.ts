@@ -4,12 +4,12 @@ import { logErrorResponse } from '../../_utils/utils';
 import { isAxiosError } from 'axios';
 import { cookies } from 'next/headers';
 
-export async function GET() {
+export async function POST() {
   try {
     const token = (await cookies()).get('token')?.value;
-    const res = await api.get('/users/current', { headers: { Authorization: `Bearer ${token}` } });
+    await api.post('/users/signout', null, { headers: { Authorization: `Bearer ${token}` } });
 
-    return NextResponse.json(res.data, { status: res.status });
+    return NextResponse.json({ message: 'Logged out successfully' }, { status: 200 });
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);

@@ -1,0 +1,224 @@
+.tableWrapper {
+    margin-bottom: 32px;
+    padding: 0px 16px;
+    max-width: 375px;
+}
+
+.tableBox {
+    display: flex;
+    background-color: rgba(133, 170, 159, 0.1);
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.tableHeadRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 14px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #121417;
+}
+
+.tableHeadRow:not(:last-child) {
+    border-right: 1px solid #dbdbdb;
+}
+
+.word {
+    /* padding: 16px 16px 14px; */
+    border-radius: 8px 0 0 0;
+    width: 82px;
+}
+
+.translation {
+    /* padding: 16px 16px 14px; */
+    width: 116px;
+}
+
+.flag {
+    display: none;
+}
+
+.category {
+    display: none;
+}
+
+.progress {
+    width: 95px;
+}
+
+.edit {
+    width: 50px;
+    border-radius: 0 8px 0 0;
+}
+
+.wordBox {
+    display: flex;
+    border-bottom: 1px solid #dbdbdb;
+    background-color: #fcfcfc;
+}
+
+.wordBox:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.wordRow {
+    display: flex;
+    align-items: center;
+    padding: 16px 14px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #121417;
+
+}
+
+.wordRow:not(:last-child) {
+    border-right: 1px solid #dbdbdb;
+}
+
+.wordWord {
+    width: 82px;
+}
+
+.wordTranslation {
+    width: 116px;
+}
+
+.wordWord,
+.wordTranslation,
+.wordCategory {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
+.wordCategory {
+    display: none;
+}
+
+.wordProgress {
+    width: 95px;
+}
+
+.wordEdit {
+    width: 50px;
+    justify-content: center;
+}
+
+@media screen and (min-width:768px) {
+
+    .tableWrapper {
+        max-width: 768px;
+        padding: 0px 32px;
+        margin-bottom: 28px;
+    }
+
+    .table {
+        border-radius: 15px;
+        padding: 18px;
+        background-color: #fff;
+    }
+
+    .tableHeadRow {
+        font-size: 18px;
+        height: 69px;
+        padding-left: 22px;
+    }
+
+    .flag {
+        display: block;
+    }
+
+    .word {
+        width: 160px;
+    }
+
+    .category {
+        display: flex;
+        align-items: center;
+        width: 151px;
+    }
+
+    .progress {
+        width: 122px;
+        padding: 22px 24px 22px 22px;
+    }
+
+    .translation {
+        width: 169px;
+        padding-right: 12px;
+    }
+
+    .edit {
+        width: 66px;
+    }
+
+    .wordRow {
+        font-size: 18px;
+        padding: 22px;
+    }
+
+    .wordWord {
+        width: 160px;
+    }
+
+    .wordTranslation {
+        width: 169px;
+    }
+
+    .wordCategory {
+        display: flex;
+        align-items: center;
+        width: 151px;
+    }
+
+    .wordProgress {
+        width: 122px;
+    }
+
+    .wordEdit {
+        width: 66px;
+    }
+}
+
+@media screen and (min-width:1440px) {
+
+    .tableWrapper {
+        max-width: 1440px;
+        padding: 0px 100px;
+    }
+
+    .tableHeadRow {
+        font-size: 20px;
+        height: 72px;
+    }
+
+    .wordRow {
+        font-size: 20px;
+    }
+
+    .word,
+    .wordWord {
+        width: 280px;
+    }
+
+    .translation,
+    .wordTranslation {
+        width: 274px;
+    }
+
+    .category,
+    .wordCategory {
+        width: 260px;
+    }
+
+    .progress,
+    .wordProgress {
+        width: 254px;
+    }
+
+    .edit,
+    .wordEdit {
+        width: 136px;
+    }
+}

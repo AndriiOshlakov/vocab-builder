@@ -5,7 +5,6 @@ import { AuthResponse } from '@/types/auth';
 
 interface AuthState {
   user: User | null;
-  token: string | null;
   isAuthenticated: boolean;
   setUser: (user: AuthResponse) => void;
   clearIsAuthenticated: () => void;
@@ -15,23 +14,16 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
-      token: null,
       isAuthenticated: false,
-
-      setUser: (data) => {
-        const { token, ...user } = data;
-
+      setUser: (data: User) => {
         set({
-          user,
-          token,
+          user: data,
           isAuthenticated: true,
         });
       },
-
       clearIsAuthenticated: () => {
         set({
           user: null,
-          token: null,
           isAuthenticated: false,
         });
       },
