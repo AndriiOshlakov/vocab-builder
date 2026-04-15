@@ -73,6 +73,10 @@
             <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.5556"
                 d="M8 12l8 8 8-8"></path>
         </symbol>
+         <symbol id="chevron-up" viewBox="0 0 32 32">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667"
+                d="M8 20l8-8 8 8"></path>
+        </symbol>
         <symbol id="chevron-left" viewBox="0 0 20 32">
             <path d="M16 32l3.76-3.76-12.213-12.24 12.213-12.24-3.76-3.76-16 16 16 16z"></path>
         </symbol>

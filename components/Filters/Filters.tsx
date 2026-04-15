@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './Filters.module.css';
 import { Category } from '@/types/words';
 
@@ -13,16 +13,20 @@ interface FilersProps {
 export default function Filters({ onSearch, onCtegoryChange, onVerb }: FilersProps) {
   const [value, setValue] = useState('');
   const [newCategory, setNewCategory] = useState<Category | ''>('');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const isVerb = newCategory === 'verb';
   const chooseCategory = (category: Category) => {
     onCtegoryChange(category);
     setNewCategory(category);
   };
-  const chooseWord = (word: string) => {
-    onSearch(word.trim());
-    setValue(word);
-  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      onSearch(value.trim());
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [value, onSearch]);
 
   const categories = [
     'verb',
@@ -39,70 +43,71 @@ export default function Filters({ onSearch, onCtegoryChange, onVerb }: FilersPro
   ];
   return (
     <form className={css.form}>
-      <label className={css.categoryLabel}>
-        <select
-          onClick={() => setIsOpen(!isOpen)}
-          name="categories"
-          className={css.select}
-          value={newCategory}
-          onChange={(e) => chooseCategory(e.target.value as Category)}
-        >
-          <option value="">Product category</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        {!isOpen && (
-          <svg className={css.icon} width={16} height={16}>
-            <use href="/symbol-defs.svg#chevron-down" />
+      <div className={css.box}>
+        <label className={css.label}>
+          <input
+            className={css.input}
+            type="text"
+            placeholder="Find the word"
+            name="search"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <svg className={css.search} width={20} height={20}>
+            <use href="/symbol-defs.svg#search" />
           </svg>
+        </label>
+        <label className={css.categoryLabel}>
+          <select
+            onClick={() => setIsOpen(!isOpen)}
+            name="categories"
+            className={css.select}
+            value={newCategory}
+            onChange={(e) => chooseCategory(e.target.value as Category)}
+          >
+            <option value="">Categories</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+          {isOpen && (
+            <svg className={css.icon} width={20} height={20}>
+              <use href="/symbol-defs.svg#chevron-down" />
+            </svg>
+          )}
+          {!isOpen && (
+            <svg className={css.icon} width={20} height={20}>
+              <use href="/symbol-defs.svg#chevron-up" />
+            </svg>
+          )}
+        </label>
+        {isVerb && (
+          <div className={css.radioBox}>
+            <label className={css.radio}>
+              <input
+                type="radio"
+                name="verb"
+                value="regular"
+                //   checked={activeRadio === 'popular'}
+                onChange={() => onVerb(true)}
+              />
+              Regular
+            </label>
+            <label className={css.radio}>
+              <input
+                type="radio"
+                name="verb"
+                value="iregular"
+                //   checked={activeRadio === 'popular'}
+                onChange={() => onVerb(false)}
+              />
+              Iregular
+            </label>
+          </div>
         )}
-        {isOpen && (
-          <svg className={css.icon} width={16} height={16}>
-            <use href="/symbol-defs.svg#chevron-up" />
-          </svg>
-        )}
-      </label>
-      <label className={css.label}>
-        <input
-          className={css.input}
-          type="text"
-          placeholder="Search medicine"
-          name="search"
-          value={value}
-          onChange={(e) => chooseWord(e.target.value)}
-        />
-        <svg className={css.search} width={16} height={16}>
-          <use href="/symbol-defs.svg#search" />
-        </svg>
-      </label>
-
-      {isVerb && (
-        <div className={css.radioBox}>
-          <label className={css.radio}>
-            <input
-              type="radio"
-              name="verb"
-              value="regular"
-              //   checked={activeRadio === 'popular'}
-              onChange={() => onVerb(true)}
-            />
-            Regular
-          </label>
-          <label className={css.radio}>
-            <input
-              type="radio"
-              name="verb"
-              value="iregular"
-              //   checked={activeRadio === 'popular'}
-              onChange={() => onVerb(false)}
-            />
-            Popular
-          </label>
-        </div>
-      )}
+      </div>
     </form>
   );
 }

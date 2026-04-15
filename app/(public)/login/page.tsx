@@ -17,16 +17,6 @@ import { useRouter } from 'next/navigation';
 
 type ApiError = AxiosError<{ error: string }>;
 
-// export const loginSchema = yup.object({
-//   email: yup
-//     .string()
-//     .required('Email is required')
-//     .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, 'Enter a valid Email'),
-//   password: yup
-//     .string()
-//     .required('Password is required')
-//     .min(7, 'Password must have 6 leters and one number'),
-// });
 export const loginSchema = yup.object({
   email: yup
     .string()
@@ -78,10 +68,6 @@ export default function Login() {
       }
 
       toast(err.response?.data?.error ?? err.message ?? 'Login failed');
-
-      // toast(
-      //   (error as ApiError).response?.data?.error ?? (error as ApiError).message ?? 'Login falls',
-      // );
     }
   };
   return (

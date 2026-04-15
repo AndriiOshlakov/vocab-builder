@@ -1,9 +1,17 @@
 export type Word = {
+  en: string;
+  ua: string;
+  category: string;
+  isIrregular?: boolean;
+};
+export type WordResponse = {
   _id: string;
   en: string;
   ua: string;
   category: string;
-  isIrregular: boolean;
+  isIrregular?: boolean;
+  owner: string;
+  progress: number;
 };
 
 export type Category =

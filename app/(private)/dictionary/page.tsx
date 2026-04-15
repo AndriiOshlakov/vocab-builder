@@ -9,6 +9,8 @@ import Table from '@/components/Table/Table';
 import Pagination from '@/components/Pagination/Pagination';
 import Header from '@/components/Header/Header';
 import Filters from '@/components/Filters/Filters';
+import Statistics from '@/components/Statistics/Statistics';
+import AddWordBlock from '@/components/AddWordBlock/AddWordBlock';
 
 export default function DictionaryPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,6 +40,10 @@ export default function DictionaryPage() {
           onSearch={setSearch}
           onVerb={setCurrentIsIrregular}
         />
+        <div className={css.wrapper}>
+          <Statistics />
+          <AddWordBlock />
+        </div>
       </div>
       {data && <Table words={data.results} />}
       {data && data.results.length > 0 && (
