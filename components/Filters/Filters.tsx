@@ -86,23 +86,11 @@ export default function Filters({ onSearch, onCtegoryChange, onVerb }: FilersPro
         {isVerb && (
           <div className={css.radioBox}>
             <label className={css.radio}>
-              <input
-                type="radio"
-                name="verb"
-                value="regular"
-                //   checked={activeRadio === 'popular'}
-                onChange={() => onVerb(true)}
-              />
+              <input type="radio" name="verb" value="regular" onChange={() => onVerb(true)} />
               Regular
             </label>
             <label className={css.radio}>
-              <input
-                type="radio"
-                name="verb"
-                value="iregular"
-                //   checked={activeRadio === 'popular'}
-                onChange={() => onVerb(false)}
-              />
+              <input type="radio" name="verb" value="iregular" onChange={() => onVerb(false)} />
               Iregular
             </label>
           </div>

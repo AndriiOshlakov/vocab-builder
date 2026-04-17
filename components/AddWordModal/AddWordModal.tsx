@@ -1,13 +1,16 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import css from './AddWordModal.module.css';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createWord } from '@/lib/api/clientApi';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { Word } from '@/types/words';
+import { AxiosError } from 'axios';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
 
 export const addWordSchema = yup.object({
   en: yup
@@ -22,7 +25,7 @@ export const addWordSchema = yup.object({
 
   category: yup.string().required('Category is required'),
 
-  verbType: yup.string().when('category', {
+  isIrregular: yup.boolean().when('category', {
     is: 'verb',
     then: (schema) => schema.required('Choose verb type'),
     otherwise: (schema) => schema.notRequired(),
@@ -33,36 +36,58 @@ interface Prop {
   onModalClose: () => void;
 }
 
+type ApiError = AxiosError<{ error: string }>;
+
 export default function AddWordModal({ onModalClose }: Prop) {
+  const [isOpen, setIsOpen] = useState(true);
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     setValue,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(addWordSchema),
   });
 
-  const category = watch('category');
+  const isIrregular = useWatch({ control, name: 'isIrregular' });
+
+  const category = useWatch({
+    control,
+    name: 'category',
+  });
+
   const isVerb = category === 'verb';
 
   // 🔥 очищаємо radio якщо не verb
   useEffect(() => {
     if (category !== 'verb') {
-      setValue('verbType', undefined);
+      setValue('isIrregular', undefined);
     }
   }, [category, setValue]);
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createWord,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['statistics'] });
+      queryClient.invalidateQueries({ queryKey: ['allWords'] });
+      queryClient.invalidateQueries({ queryKey: ['ownWords'] });
+      toast.success('Word added successfully');
+      setTimeout(() => onModalClose(), 1000);
+    },
+  });
+
   const onSubmit = async (data: Word) => {
     try {
-      await createWord(data);
-
-      toast.success('Word added successfully');
-
-      onModalClose(); // 👈 закрити модалку
+      mutation.mutate(data);
     } catch (error) {
-      toast.error(error?.response?.data?.error || 'Failed to add word');
+      toast(
+        (error as ApiError).response?.data?.error ??
+          (error as ApiError).message ??
+          'Added new word falls',
+      );
     }
   };
 
@@ -79,8 +104,10 @@ export default function AddWordModal({ onModalClose }: Prop) {
     'phrasal verb',
     'functional phrase',
   ];
+
   return (
     <div className={css.formContainer}>
+      <Toaster />
       <button className={css.closeBtn} onClick={onModalClose}>
         <svg width={32} height={32}>
           <use href="/symbol-defs.svg#x" />
@@ -91,50 +118,92 @@ export default function AddWordModal({ onModalClose }: Prop) {
         Adding a new word to the dictionary is an important step in enriching the language base and
         expanding the vocabulary.
       </p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* EN */}
-        <input placeholder="English word" {...register('en')} />
-        {errors.en && <p>{errors.en.message}</p>}
+      <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
+        <div className={css.categoryBox}>
+          <label className={css.categoryLabel}>
+            <select
+              {...register('category')}
+              className={css.select}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <option value="" className={css.non}>
+                Choose category
+              </option>
+              {categories.map((category, index) => (
+                <option value={category} key={index}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            {errors.category && <p>{errors.category.message}</p>}
+            {isOpen && (
+              <svg className={css.icon} width={20} height={20}>
+                <use href="/symbol-defs.svg#chevron-down" />
+              </svg>
+            )}
+            {!isOpen && (
+              <svg className={css.icon} width={20} height={20}>
+                <use href="/symbol-defs.svg#chevron-up" />
+              </svg>
+            )}
+          </label>
 
-        {/* UA */}
-        <input placeholder="Translation" {...register('ua')} />
-        {errors.ua && <p>{errors.ua.message}</p>}
+          {/* 👇 RADIO тільки для verb */}
+          {isVerb && (
+            <div className={css.radioBox}>
+              <input type="hidden" {...register('isIrregular')} />
+              <label className={css.radio}>
+                <input
+                  type="radio"
+                  checked={isIrregular === false}
+                  onChange={() => setValue('isIrregular', false)}
+                />
+                Regular
+              </label>
 
-        {/* CATEGORY */}
-        <select {...register('category')}>
-          {categories.map((category, index) => (
-            <option value={category} key={index}>
-              {category}
-            </option>
-          ))}
-        </select>
-        {errors.category && <p>{errors.category.message}</p>}
+              <label className={css.radio}>
+                <input
+                  type="radio"
+                  checked={isIrregular === true}
+                  onChange={() => setValue('isIrregular', true)}
+                />
+                Irregular
+              </label>
 
-        {/* 👇 RADIO тільки для verb */}
-        {isVerb && (
-          <div>
-            <label>
-              <input type="radio" value="regular" {...register('verbType')} />
-              Regular
-            </label>
-
-            <label>
-              <input type="radio" value="irregular" {...register('verbType')} />
-              Irregular
-            </label>
-
-            {errors.verbType && <p>{errors.verbType.message}</p>}
+              {errors.isIrregular && <p>{errors.isIrregular.message}</p>}
+            </div>
+          )}
+          {isIrregular === true && (
+            <p className={css.subText}>
+              Such data must be entered in the format I form-II form-III form.
+            </p>
+          )}
+        </div>
+        <div className={css.inputBox}>
+          <div className={css.wrapper}>
+            <Image width={28} height={28} alt="Flag" className={css.img} src="/uk.png" />
+            <p>Ukrainian</p>
           </div>
-        )}
+          <input placeholder="Translation" {...register('ua')} className={css.input} />
+          {errors.ua && <p>{errors.ua.message}</p>}
+        </div>
+        <div className={css.inputBox}>
+          <div className={css.wrapper}>
+            <Image width={28} height={28} alt="Flag" className={css.img} src="/en.png" />
+            <p>English</p>
+          </div>
+          <input placeholder="English word" {...register('en')} className={css.input} />
+          {errors.en && <p>{errors.en.message}</p>}
+        </div>
+        <div className={css.btnBox}>
+          <button type="submit" disabled={isSubmitting} className={css.addBtn}>
+            Add
+          </button>
 
-        {/* BUTTONS */}
-        <button type="submit" disabled={isSubmitting}>
-          Add
-        </button>
-
-        <button type="button" onClick={onModalClose}>
-          Cancel
-        </button>
+          <button type="button" onClick={onModalClose} className={css.cancelBtn}>
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

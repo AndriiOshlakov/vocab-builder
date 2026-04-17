@@ -1,7 +1,13 @@
 import { RegisterUserResponse, User } from '@/types/user';
 import { nextServer } from './api';
 import { LoginRequest, RegisterRequest } from '@/types/auth';
-import { AllWordsRequest, AllWordsResponse, Word, WordResponse } from '@/types/words';
+import {
+  AllWordsRequest,
+  AllWordsResponse,
+  OwnWordsResponse,
+  Word,
+  WordResponse,
+} from '@/types/words';
 
 export const getMe = async () => {
   const { data } = await nextServer.get<User>('/users/current');
@@ -31,6 +37,23 @@ export async function getAllWords({
   const response = await nextServer.get<AllWordsResponse>('/words/all', {
     params: { page, limit, category, isIrregular, keyword },
   });
+  console.log('ALL WORDS', response);
+
+  return response.data;
+}
+
+export async function getOwnWords({
+  page,
+  limit,
+  category,
+  isIrregular,
+  keyword,
+}: AllWordsRequest) {
+  const response = await nextServer.get<OwnWordsResponse>('/words/own', {
+    params: { page, limit, category, isIrregular, keyword },
+  });
+
+  console.log('OWN WORDS', response);
 
   return response.data;
 }
@@ -47,5 +70,7 @@ export async function getStatistics() {
 
 export async function createWord(params: Word) {
   const res = await nextServer.post<WordResponse>('/words/create', params);
+  console.log('NEW WORD', res.data);
+
   return res.data;
 }

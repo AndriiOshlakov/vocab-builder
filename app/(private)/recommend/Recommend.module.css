@@ -1,0 +1,39 @@
+.recommendPage {
+    margin: 0 auto;
+    background-color: #f8f8f8;
+    padding-bottom: 48px;
+}
+
+.filtersBox {
+    padding: 0 16px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+@media screen and (min-width:768px) {
+    .filtersBox {
+        padding: 48px 32px 28px;
+        gap: 28px;
+    }
+
+    .wrapper {
+        flex-direction: row;
+        gap: 16px;
+    }
+}
+
+@media screen and (min-width:1440px) {
+    .filtersBox {
+        padding-left: 100px;
+        padding-right: 100px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

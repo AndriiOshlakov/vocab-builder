@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import css from './Dictionary.module.css';
 import { useQuery } from '@tanstack/react-query';
-import { getAllWords } from '@/lib/api/clientApi';
+import { getOwnWords } from '@/lib/api/clientApi';
 import { Category } from '@/types/words';
 import Table from '@/components/Table/Table';
 import Pagination from '@/components/Pagination/Pagination';
@@ -20,9 +20,9 @@ export default function DictionaryPage() {
   const currentLimit = 7;
 
   const { data } = useQuery({
-    queryKey: ['words', currentCategory, currentIsIrregular, currentLimit, currentPage, search],
+    queryKey: ['ownWords', currentCategory, currentIsIrregular, currentLimit, currentPage, search],
     queryFn: () =>
-      getAllWords({
+      getOwnWords({
         page: currentPage,
         limit: currentLimit,
         keyword: search,

@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function Statistics() {
   const { data } = useQuery({
     queryKey: ['statistics'],
-    queryFn: getStatistics,
+    queryFn: () => getStatistics(),
   });
 
   return (

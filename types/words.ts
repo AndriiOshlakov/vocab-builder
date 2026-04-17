@@ -41,3 +41,10 @@ export type AllWordsResponse = {
   page: number;
   perPage: number;
 };
+
+export type OwnWordsResponse = {
+  results: WordResponse[];
+  totalPages: number;
+  page: number;
+  perPage: number;
+};
