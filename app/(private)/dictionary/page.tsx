@@ -39,6 +39,7 @@ export default function DictionaryPage() {
           onCtegoryChange={setCurrentCategory}
           onSearch={setSearch}
           onVerb={setCurrentIsIrregular}
+          onPage={setCurrentPage}
         />
         <div className={css.wrapper}>
           <Statistics />

@@ -36,7 +36,7 @@ export type AllWordsRequest = {
 };
 
 export type AllWordsResponse = {
-  results: Word[];
+  results: WordResponse[];
   totalPages: number;
   page: number;
   perPage: number;

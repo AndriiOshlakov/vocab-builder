@@ -18,7 +18,6 @@ export const getMe = async () => {
 
 export async function registerUser(params: RegisterRequest) {
   const res = await nextServer.post<RegisterUserResponse>('/register', params);
-
   return res.data;
 }
 
@@ -37,8 +36,6 @@ export async function getAllWords({
   const response = await nextServer.get<AllWordsResponse>('/words/all', {
     params: { page, limit, category, isIrregular, keyword },
   });
-  console.log('ALL WORDS', response);
-
   return response.data;
 }
 
@@ -52,9 +49,6 @@ export async function getOwnWords({
   const response = await nextServer.get<OwnWordsResponse>('/words/own', {
     params: { page, limit, category, isIrregular, keyword },
   });
-
-  console.log('OWN WORDS', response);
-
   return response.data;
 }
 
@@ -64,13 +58,32 @@ export async function logout() {
 
 export async function getStatistics() {
   const res = await nextServer.get<{ totalCount: number }>('/words/statistics');
-
   return res.data;
 }
 
 export async function createWord(params: Word) {
   const res = await nextServer.post<WordResponse>('/words/create', params);
-  console.log('NEW WORD', res.data);
+  return res.data;
+}
+
+export async function deleteWord(id: string) {
+  const res = await nextServer.delete(`/words/delete/${id}`);
+  console.log(res.data);
+}
+
+export type UpdateWordParams = {
+  id: string;
+  params: Word;
+};
+
+export async function editWord({ id, params }: UpdateWordParams) {
+  const res = await nextServer.patch(`/words/edit/${id}`, params);
+  return res.data;
+}
+
+export async function addWord(id: string) {
+  const res = await nextServer.post<WordResponse>(`/words/add/${id}`);
+  console.log(res.data);
 
   return res.data;
 }

@@ -26,13 +26,19 @@
 }
 
 .word {
-    /* padding: 16px 16px 14px; */
     border-radius: 8px 0 0 0;
     width: 82px;
 }
 
+.wordRec {
+    width: 90px;
+}
+
 .translation {
-    /* padding: 16px 16px 14px; */
+    width: 116px;
+}
+
+.translationRec {
     width: 116px;
 }
 
@@ -44,14 +50,29 @@
     display: none;
 }
 
+.categoryRec {
+    width: 99px;
+}
+
 .progress {
     width: 95px;
+}
+
+.progressRec {
+    display: none;
 }
 
 .edit {
     width: 50px;
     border-radius: 0 8px 0 0;
 }
+
+.editRec {
+    width: 38px;
+    border-radius: 0 8px 0 0;
+}
+
+
 
 .wordBox {
     display: flex;
@@ -81,7 +102,15 @@
     width: 82px;
 }
 
+.wordWordRec {
+    width: 90px;
+}
+
 .wordTranslation {
+    width: 116px;
+}
+
+.wordTranslationRec {
     width: 116px;
 }
 
@@ -92,17 +121,79 @@
     overflow-wrap: anywhere;
 }
 
+.wordWordRec,
+.wordTranslationRec,
+.wordCategoryRec {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
 .wordCategory {
     display: none;
+}
+
+.wordCategoryRec {
+    width: 99px;
 }
 
 .wordProgress {
     width: 95px;
 }
 
+.wordProgressRec {
+    display: none;
+}
+
 .wordEdit {
     width: 50px;
     justify-content: center;
+    position: relative;
+}
+
+.wordEditRec {
+    display: flex;
+    justify-content: center;
+    width: 38px;
+}
+
+.editBox {
+    position: absolute;
+    top: 42px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 12px 24px;
+    gap: 8px;
+    box-shadow: 0 4px 47px 0 rgba(18, 20, 23, 0.08);
+    background: #fff;
+    z-index: 9;
+}
+
+.editBtn {
+    display: flex;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #121417;
+    align-items: center;
+}
+
+.addToMyList {
+    padding: 0;
+}
+
+.editIcon {
+    stroke: #85aa9f;
+    fill: #fff;
+}
+
+.text {
+    display: none;
+}
+
+.arrowImg {
+    stroke: #85aa9f;
 }
 
 @media screen and (min-width:768px) {
@@ -133,10 +224,19 @@
         width: 160px;
     }
 
+    .wordRec,
+    .translationRec {
+        width: 180px;
+    }
+
     .category {
         display: flex;
         align-items: center;
         width: 151px;
+    }
+
+    .categoryRec {
+        width: 160px;
     }
 
     .progress {
@@ -153,6 +253,10 @@
         width: 66px;
     }
 
+    .editRec {
+        width: 148px;
+    }
+
     .wordRow {
         font-size: 18px;
         padding: 22px;
@@ -160,6 +264,11 @@
 
     .wordWord {
         width: 160px;
+    }
+
+    .wordWordRec,
+    .wordTranslationRec {
+        width: 180px;
     }
 
     .wordTranslation {
@@ -172,6 +281,10 @@
         width: 151px;
     }
 
+    .wordCategoryRec {
+        width: 160px;
+    }
+
     .wordProgress {
         width: 122px;
     }
@@ -179,7 +292,27 @@
     .wordEdit {
         width: 66px;
     }
+
+    .wordEditRec {
+        width: 148px;
+        padding: 14px;
+    }
+
+    .editBtn {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .addToMyList {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .text {
+        display: block;
+    }
 }
+
 
 @media screen and (min-width:1440px) {
 
@@ -202,13 +335,28 @@
         width: 280px;
     }
 
+    .wordRec,
+    .wordWordRec {
+        width: 372px;
+    }
+
     .translation,
     .wordTranslation {
         width: 274px;
     }
 
+    .translationRec,
+    .wordTranslationRec {
+        width: 364px;
+    }
+
     .category,
     .wordCategory {
+        width: 260px;
+    }
+
+    .categoryRec,
+    .wordCategoryRec {
         width: 260px;
     }
 
@@ -220,5 +368,16 @@
     .edit,
     .wordEdit {
         width: 136px;
+    }
+
+    .editRec,
+    .wordEditRec {
+        width: 208px;
+        padding: 22px;
+    }
+
+    .addToMyList {
+        flex-direction: row;
+        gap: 8px;
     }
 }

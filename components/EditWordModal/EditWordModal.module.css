@@ -1,0 +1,124 @@
+.form {
+    position: relative;
+    border-radius: 15px;
+    width: 342px;
+    background: #85aa9f;
+    padding: 48px 16px;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    stroke: #fcfcfc;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fcfcfc;
+}
+
+.input {
+    border: 1px solid #d1d5db;
+    border-radius: 15px;
+    outline: none;
+    height: 48px;
+    padding: 12px 24px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fcfcfc;
+    background-color: transparent;
+}
+
+.btnBox {
+    display: flex;
+    gap: 8px;
+    margin-top: 32px;
+}
+
+.saveBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 158px;
+    height: 48px;
+    background-color: #fcfcfc;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #121417;
+}
+
+.cancelBtn {
+    border: 1px solid rgba(252, 252, 252, 0.4);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 145px;
+    height: 48px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fcfcfc;
+}
+
+@media screen and (min-width:768px) {
+    .form {
+        border-radius: 30px;
+        padding: 64px;
+        width: 627px;
+    }
+
+    .closeBtn {
+        top: 20px;
+        right: 20px;
+    }
+
+    .closeIcon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .inputBox {
+        flex-direction: row-reverse;
+        gap: 32px;
+        margin-bottom: 18px;
+        justify-content: flex-end;
+    }
+
+    .input {
+        padding: 16px 18px;
+        width: 354px;
+        height: 56px;
+    }
+
+    .img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .btnBox {
+        gap: 10px;
+    }
+
+    .saveBtn,
+    .cancelBtn {
+        width: 245px;
+        height: 56px;
+        font-size: 18px;
+    }
+}

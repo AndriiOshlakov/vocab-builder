@@ -59,13 +59,13 @@ export default function Pagination({ page, pageCount, onPageChange }: Props) {
             {page + 1}
           </button>
         )}
-        {isFirstPage && pageCount > 3 && (
+        {isFirstPage && pageCount >= 3 && (
           <button onClick={() => onPageChange(page + 2)} className={css.pageTwo}>
             {page + 2}
           </button>
         )}
-        {!isLastPage && pageCount >= 3 && <p className={css.dots}>...</p>}
-        {!isLastPage && pageCount >= 3 && (
+        {!isLastPage && pageCount > 3 && <p className={css.dots}>...</p>}
+        {!isLastPage && pageCount > 3 && (
           <button className={css.page} onClick={() => onPageChange(pageCount)}>
             {pageCount}
           </button>

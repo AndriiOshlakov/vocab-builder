@@ -8,25 +8,29 @@ interface FilersProps {
   onSearch: (newSearch: string) => void;
   onCtegoryChange: (newCategory: Category) => void;
   onVerb: (verb: boolean) => void;
+  onPage: (page: number) => void;
 }
 
-export default function Filters({ onSearch, onCtegoryChange, onVerb }: FilersProps) {
+export default function Filters({ onSearch, onCtegoryChange, onVerb, onPage }: FilersProps) {
   const [value, setValue] = useState('');
   const [newCategory, setNewCategory] = useState<Category | ''>('');
   const [isOpen, setIsOpen] = useState(true);
   const isVerb = newCategory === 'verb';
+
   const chooseCategory = (category: Category) => {
     onCtegoryChange(category);
     setNewCategory(category);
+    onPage(1);
   };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       onSearch(value.trim());
+      onPage(1);
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [value, onSearch]);
+  }, [value, onSearch, onPage]);
 
   const categories = [
     'verb',
@@ -86,11 +90,27 @@ export default function Filters({ onSearch, onCtegoryChange, onVerb }: FilersPro
         {isVerb && (
           <div className={css.radioBox}>
             <label className={css.radio}>
-              <input type="radio" name="verb" value="regular" onChange={() => onVerb(true)} />
+              <input
+                type="radio"
+                name="verb"
+                value="regular"
+                onChange={() => {
+                  onVerb(false);
+                  onPage(1);
+                }}
+              />
               Regular
             </label>
             <label className={css.radio}>
-              <input type="radio" name="verb" value="iregular" onChange={() => onVerb(false)} />
+              <input
+                type="radio"
+                name="verb"
+                value="iregular"
+                onChange={() => {
+                  onVerb(true);
+                  onPage(1);
+                }}
+              />
               Iregular
             </label>
           </div>
