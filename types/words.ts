@@ -4,6 +4,7 @@ export type Word = {
   category: string;
   isIrregular?: boolean;
 };
+
 export type WordResponse = {
   _id: string;
   en: string;
@@ -47,4 +48,17 @@ export type OwnWordsResponse = {
   totalPages: number;
   page: number;
   perPage: number;
+};
+
+export type Task = {
+  en?: string;
+  ua?: string;
+  task: 'ua' | 'en';
+  _id: string;
+};
+
+export type Answer = Task & { isDone: boolean };
+
+export type TasksResponse = {
+  tasks: Answer[];
 };

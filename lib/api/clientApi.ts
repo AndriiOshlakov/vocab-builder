@@ -5,6 +5,8 @@ import {
   AllWordsRequest,
   AllWordsResponse,
   OwnWordsResponse,
+  Task,
+  TasksResponse,
   Word,
   WordResponse,
 } from '@/types/words';
@@ -85,5 +87,16 @@ export async function addWord(id: string) {
   const res = await nextServer.post<WordResponse>(`/words/add/${id}`);
   console.log(res.data);
 
+  return res.data;
+}
+
+export async function getTasks() {
+  const res = await nextServer.get<TasksResponse>('/words/tasks');
+  return res.data.tasks;
+}
+
+export async function createAnswer(params: Task[]) {
+  const res = await nextServer.post('/words/answers', params);
+  console.log(res.data);
   return res.data;
 }

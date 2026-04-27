@@ -133,7 +133,6 @@ export default function Table({ words }: TableProps) {
                   <button
                     type="button"
                     className={css.addToMyList}
-                    // disabled={user?._id === word.owner}
                     onClick={() => addCurrentWord(word._id)}
                   >
                     <p className={css.text}>Add to dictionary</p>

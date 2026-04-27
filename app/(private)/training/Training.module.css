@@ -1,0 +1,190 @@
+.training {
+    background: #f8f8f8;
+}
+
+.taskContainer {
+    width: 100%;
+    padding: 0 16px 76px;
+}
+
+.labelsBox {
+    margin-bottom: 116px;
+}
+
+.labelUa {
+    display: flex;
+    flex-direction: column;
+    gap: 103px;
+    border-bottom: 1px solid #dbdbdb;
+    border-radius: 8px 8px 0 0;
+    padding: 22px;
+    width: 100%;
+    background-color: #fcfcfc;
+    position: relative;
+}
+
+.labelEn {
+    display: flex;
+    flex-direction: column;
+    gap: 103px;
+    padding: 22px;
+    width: 100%;
+    background-color: #fcfcfc;
+    border-radius: 0 0 8px 8px;
+}
+
+.input {
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #121417;
+    background-color: transparent;
+    width: 100%;
+}
+
+.input::placeholder {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #121417;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    font-weight: 500;
+    font-size: 14px;
+    color: #121417;
+}
+
+.nextBtn {
+    position: absolute;
+    bottom: 19px;
+    left: 22px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(18, 20, 23, 0.5);
+    stroke: rgba(18, 20, 23, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0;
+}
+
+.btnsBox {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.saveBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    width: 343px;
+    height: 56px;
+    background-color: #85aa9f;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fcfcfc;
+    padding: 0;
+}
+
+.cancelBtn {
+    font-weight: 700;
+    font-size: 16px;
+    color: rgba(18, 20, 23, 0.5);
+    padding: 0;
+}
+
+@media screen and (min-width:768px) {
+    .taskContainer {
+        padding: 0px 32px 104px;
+    }
+
+    .labelsBox {
+        margin-bottom: 40px;
+    }
+
+    .labelEn,
+    .labelUa {
+        padding: 40px 40px 228px;
+        flex-direction: row;
+    }
+
+    .labelUa {
+        border-radius: 15px 15px 0 0;
+    }
+
+    .labelEn {
+        border-radius: 0 0 15px 15px;
+    }
+
+    .input,
+    .input::placeholder {
+        font-size: 20px;
+    }
+
+    .wrapper {
+        font-size: 16px;
+    }
+
+    .image {
+        width: 32px;
+        height: 32px;
+    }
+
+    .btnsBox {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .saveBtn {
+        width: 203px;
+        font-size: 18px;
+    }
+
+    .cancelBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #85aa9f;
+        border-radius: 30px;
+        width: 203px;
+        height: 56px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width:1440px) {
+    .taskContainer {
+        padding: 0px 100px 102px;
+    }
+
+    .labelsBox {
+        display: flex;
+        margin-bottom: 80px;
+        border-radius: 15px;
+    }
+
+    .labelUa {
+        border-right: 1px solid #dbdbdb;
+        border-radius: 15px 0 0 15px;
+        padding: 40px 22px 266px 40px;
+    }
+
+    .labelEn {
+        border: none;
+        border-radius: 0 15px 15px 0;
+        padding: 40px 40px 266px 22px;
+    }
+}

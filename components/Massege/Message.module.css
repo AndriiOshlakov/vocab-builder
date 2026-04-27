@@ -1,0 +1,122 @@
+.message {
+    padding: 43px 16px 75px;
+    display: flex;
+    flex-direction: column;
+    width: 375px;
+    margin: 0 auto;
+}
+
+.img {
+    margin: 0 auto;
+}
+
+.imgTab {
+    display: none;
+}
+
+.text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #121417;
+    margin: 32px 0px 16px;
+}
+
+.subText {
+    font-weight: 400;
+    font-size: 14px;
+    color: #121417;
+    margin-bottom: 132px;
+}
+
+.btnsBox {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.saveBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    width: 343px;
+    height: 56px;
+    background-color: #85aa9f;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fcfcfc;
+    padding: 0;
+}
+
+.cancelBtn {
+    font-weight: 700;
+    font-size: 16px;
+    color: rgba(18, 20, 23, 0.5);
+    padding: 0;
+}
+
+@media screen and (min-width:768px) {
+    .message {
+        width: 768px;
+        padding: 108px 94px 227px;
+    }
+
+    .img {
+        display: none;
+    }
+
+    .imgTab {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .text {
+        font-size: 20px;
+        margin-right: auto;
+        margin-bottom: 32px;
+    }
+
+    .subText {
+        font-size: 16px;
+        margin-bottom: 64px;
+    }
+
+    .btnsBox {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .saveBtn {
+        width: 203px;
+        font-size: 18px;
+    }
+
+    .cancelBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #85aa9f;
+        border-radius: 30px;
+        width: 203px;
+        height: 56px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width:1440px) {
+
+    .message {
+        width: 1440px;
+        padding: 210px 269px 247px 293px;
+        flex-direction: row-reverse;
+        gap: 32px;
+        align-items: center;
+    }
+
+    .text {
+        margin-top: 0;
+    }
+}

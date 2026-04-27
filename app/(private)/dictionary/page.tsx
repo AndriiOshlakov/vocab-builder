@@ -11,6 +11,9 @@ import Header from '@/components/Header/Header';
 import Filters from '@/components/Filters/Filters';
 import Statistics from '@/components/Statistics/Statistics';
 import AddWordBlock from '@/components/AddWordBlock/AddWordBlock';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Backdrop from '@/components/Backdrop/Backdrop';
+import AddWordModal from '@/components/AddWordModal/AddWordModal';
 
 export default function DictionaryPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,6 +21,10 @@ export default function DictionaryPage() {
   const [currentCategory, setCurrentCategory] = useState('');
   const [currentIsIrregular, setCurrentIsIrregular] = useState(false);
   const currentLimit = 7;
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const isAddModalOpen = searchParams.get('modal') === 'add';
 
   const { data } = useQuery({
     queryKey: ['ownWords', currentCategory, currentIsIrregular, currentLimit, currentPage, search],
@@ -30,6 +37,10 @@ export default function DictionaryPage() {
         category: currentCategory as Category,
       }),
   });
+
+  const handleCloseModal = () => {
+    router.push('/dictionary');
+  };
 
   return (
     <div className={css.dictionaryPage}>
@@ -49,6 +60,11 @@ export default function DictionaryPage() {
       {data && <Table words={data.results} />}
       {data && data.results.length > 0 && (
         <Pagination page={currentPage} pageCount={data.totalPages} onPageChange={setCurrentPage} />
+      )}
+      {isAddModalOpen && (
+        <Backdrop onClose={handleCloseModal}>
+          <AddWordModal onModalClose={handleCloseModal} />
+        </Backdrop>
       )}
     </div>
   );
