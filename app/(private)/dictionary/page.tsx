@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState } from 'react';
 import css from './Dictionary.module.css';
 import { useQuery } from '@tanstack/react-query';
