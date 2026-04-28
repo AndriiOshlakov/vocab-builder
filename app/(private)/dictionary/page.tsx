@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './Dictionary.module.css';
 import { useQuery } from '@tanstack/react-query';
 import { getOwnWords } from '@/lib/api/clientApi';
@@ -22,11 +22,15 @@ export default function DictionaryPage() {
   const [search, setSearch] = useState('');
   const [currentCategory, setCurrentCategory] = useState('');
   const [currentIsIrregular, setCurrentIsIrregular] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const currentLimit = 7;
 
   const searchParams = useSearchParams();
   const router = useRouter();
-  const isAddModalOpen = searchParams.get('modal') === 'add';
+
+  useEffect(() => {
+    setIsAddModalOpen(searchParams.get('modal') === 'add');
+  }, [searchParams]);
 
   const { data } = useQuery({
     queryKey: ['ownWords', currentCategory, currentIsIrregular, currentLimit, currentPage, search],
