@@ -3,12 +3,8 @@
 import Image from 'next/image';
 import css from './Message.module.css';
 import { useRouter } from 'next/navigation';
-// import { useState } from 'react';
-// import Backdrop from '../Backdrop/Backdrop';
-// import AddWordModal from '../AddWordModal/AddWordModal';
 
 export default function Message() {
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
   return (
     <div className={css.message}>
@@ -34,17 +30,14 @@ export default function Message() {
           study.
         </p>
         <div className={css.btnsBox}>
-          <button className={css.saveBtn}>Add word</button>
-          <button className={css.cancelBtn} onClick={() => router.push('/dictionary?modal=add')}>
+          <button className={css.saveBtn} onClick={() => router.push('/dictionary?modal=add')}>
+            Add word
+          </button>
+          <button className={css.cancelBtn} onClick={() => router.push('/dictionary')}>
             Cancel
           </button>
         </div>
       </div>
-      {/* {isModalOpen && (
-        <Backdrop onClose={() => setIsModalOpen(false)}>
-          <AddWordModal onModalClose={() => setIsModalOpen(false)} />
-        </Backdrop>
-      )} */}
     </div>
   );
 }

@@ -60,5 +60,5 @@ export type Task = {
 export type Answer = Task & { isDone: boolean };
 
 export type TasksResponse = {
-  tasks: Answer[];
+  tasks: Task[];
 };

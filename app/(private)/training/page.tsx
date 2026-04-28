@@ -5,7 +5,7 @@ import css from './Training.module.css';
 import { useQuery } from '@tanstack/react-query';
 import { createAnswer, getTasks } from '@/lib/api/clientApi';
 import { useState } from 'react';
-import { Task } from '@/types/words';
+import { Answer, Task } from '@/types/words';
 import Image from 'next/image';
 import toast, { Toaster } from 'react-hot-toast';
 import { AxiosError } from 'axios';
@@ -14,6 +14,7 @@ import WellDoneModal from '@/components/WellDoneModal/WellDoneModal';
 import { useRouter } from 'next/navigation';
 import Loader from '@/components/Loader/Loader';
 import Message from '@/components/Massege/Message';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 type ApiError = AxiosError<{ error: string }>;
 
@@ -22,6 +23,7 @@ export default function TrainingPage() {
   const [answer, setAnswer] = useState('');
   const [answers, setAnswers] = useState<Task[]>([]);
   const [isWellDoneModalOpen, setIsWellDoneModelOpen] = useState(false);
+  const [responseApi, setResponseApi] = useState<Answer[]>([]);
 
   const router = useRouter();
 
@@ -73,6 +75,7 @@ export default function TrainingPage() {
       }
       const currentAnswers = await createAnswer(finalAnswers);
       if (currentAnswers) {
+        setResponseApi(currentAnswers);
         toast.success('Answer saved');
         setIsWellDoneModelOpen(true);
       }
@@ -90,10 +93,53 @@ export default function TrainingPage() {
     }
   };
 
+  const handleWellDone = () => {
+    setIsWellDoneModelOpen(false);
+    router.push('/dictionary');
+  };
+
+  const total = englishTasks?.length ?? 0;
+
+  // const isLastTask = total && currentIndex === total - 1;
+
+  const progress = total ? ((total - currentIndex - (isLastTask ? 1 : 0)) / total) * 100 : 0;
+
   return (
     <div className={css.training}>
       <Toaster />
       <Header />
+      {englishTasks && englishTasks.length !== 0 && (
+        <div className={css.progressWrapper}>
+          <div className={css.progressBox}>
+            <CircularProgressbar
+              value={progress}
+              text={`${Math.round(progress)}`}
+              styles={buildStyles({
+                // Rotation of path and trail, in number of turns (0-1)
+                rotation: 0.25,
+
+                // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                strokeLinecap: 'butt',
+
+                // Text size
+                // textSize: '16',
+
+                // How long animation takes to go from one percentage to another, in seconds
+                pathTransitionDuration: 0.5,
+
+                // Can specify path transition in more detail, or remove it entirely
+                // pathTransition: 'none',
+
+                // Colors
+                pathColor: '#85aa9f',
+                textColor: '#121417',
+                trailColor: '#d6d6d6',
+                backgroundColor: '#3e98c7',
+              })}
+            />
+          </div>
+        </div>
+      )}
       {englishTasks && englishTasks.length !== 0 && (
         <div className={css.taskContainer}>
           <div className={css.labelsBox}>
@@ -139,12 +185,8 @@ export default function TrainingPage() {
       )}
       {(!tasks || englishTasks?.length === 0) && <Message />}
       {isWellDoneModalOpen && (
-        <Backdrop
-          onClose={() => {
-            setIsWellDoneModelOpen(false);
-          }}
-        >
-          <WellDoneModal />
+        <Backdrop onClose={handleWellDone}>
+          <WellDoneModal onClose={handleWellDone} answers={responseApi} />
         </Backdrop>
       )}
     </div>

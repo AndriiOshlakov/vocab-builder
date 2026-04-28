@@ -4,6 +4,7 @@ import { LoginRequest, RegisterRequest } from '@/types/auth';
 import {
   AllWordsRequest,
   AllWordsResponse,
+  Answer,
   OwnWordsResponse,
   Task,
   TasksResponse,
@@ -96,7 +97,7 @@ export async function getTasks() {
 }
 
 export async function createAnswer(params: Task[]) {
-  const res = await nextServer.post('/words/answers', params);
+  const res = await nextServer.post<Answer[]>('/words/answers', params);
   console.log(res.data);
   return res.data;
 }
