@@ -38,8 +38,7 @@ export default function TrainingPage() {
 
   const englishTasks = tasks?.filter((task) => task.task !== 'en');
   // const ukrainianTasks = tasks?.filter((task) => task.task !== 'ua');
-  console.log('ENGLISH', englishTasks);
-  // console.log('UKRAINIAN', ukrainianTasks);
+
   const isLastTask = englishTasks && currentIndex === englishTasks.length - 1;
 
   const currentTask = englishTasks?.[currentIndex];
@@ -100,8 +99,6 @@ export default function TrainingPage() {
 
   const total = englishTasks?.length ?? 0;
 
-  // const isLastTask = total && currentIndex === total - 1;
-
   const progress = total ? ((total - currentIndex - (isLastTask ? 1 : 0)) / total) * 100 : 0;
 
   return (
@@ -148,7 +145,7 @@ export default function TrainingPage() {
                 name="ua"
                 className={css.input}
                 value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
+                onChange={(e) => setAnswer(e.target.value.toLocaleLowerCase())}
                 placeholder="Введіть переклад"
               />
               <div className={css.wrapper}>
